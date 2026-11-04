@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:,">
+<title>リンクの開き方テスト 第3弾</title>
+<style>
+:root{color-scheme:light;--bg:#f4f4f1;--card:#fff;--ink:#1a1a1a;--sub:#5c5c5c;--line:#deded9;--main:#1a5f9e;--ok:#137a3a;--warn:#8a5a00}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;padding:0 0 76px}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+header{background:#fff;border-bottom:1px solid var(--line);padding:16px 0}
+h1{font-size:20px;line-height:1.4;margin:0 0 10px}
+.env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:8px}
+.env div{background:#eef3f8;border-radius:8px;padding:8px 10px;min-width:0}
+.env small{display:block;font-size:12px;color:var(--sub)}
+.env b{font-size:16px;line-height:1.4;display:block}
+#band{color:#fff;padding:12px 0;font-size:15px;line-height:1.65}
+#band b{display:block;font-size:17px}
+#band.go{background:var(--ok)}
+#band.normal{background:var(--main)}
+#band.unknown{background:var(--warn)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;margin:16px 0}
+.box h2{margin:0 0 6px;font-size:16px;border:0;padding:0}
+.box ol{margin:6px 0 0;padding-left:1.4em;font-size:15px}
+.box li{margin-bottom:3px}
+.q{margin-top:12px}
+.q>span{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+h2{font-size:18px;line-height:1.45;margin:28px 0 4px;padding-bottom:6px;border-bottom:2px solid var(--main)}
+.lead{font-size:14px;color:var(--sub);margin:6px 0 12px}
+.t{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px}
+.t.done{border-color:#a9cdb2;background:#fafefb}
+.t h3{font-size:16px;line-height:1.5;margin:0 0 4px}
+.t h3 i{font-style:normal;display:inline-block;background:#eef3f8;color:var(--main);font-size:13px;font-weight:700;padding:0 7px;border-radius:4px;margin-right:6px}
+.t p{font-size:14px;color:var(--sub);margin:0 0 10px}
+.go-btn{display:block;width:100%;text-align:center;background:var(--main);color:#fff;text-decoration:none;font:inherit;font-weight:700;font-size:16px;padding:13px;border-radius:8px;border:0;cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,.15)}
+.ans{margin-top:10px}
+.ans>span{display:block;font-size:13px;color:var(--sub);margin-bottom:6px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.opt{font:inherit;font-size:14px;line-height:1.4;min-height:48px;padding:7px 6px;border:1px solid #c9c9c3;background:#fff;border-radius:8px;cursor:pointer;color:var(--ink);-webkit-tap-highlight-color:transparent}
+.opt[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:#fff;font-weight:700}
+.nw{display:inline-block;white-space:nowrap}
+.memo{width:100%;margin-top:8px;font:inherit;font-size:16px;padding:8px 10px;border:1px solid #c9c9c3;border-radius:8px;background:#fff;color:var(--ink)}
+.auto{font-size:12px;color:var(--sub);margin-top:6px;min-height:1em}
+.warn{background:#fff6e0;border:1px solid #ecd28f;border-radius:8px;padding:10px 12px;font-size:14px;margin:0 0 10px;color:#4f3a00}
+#summary{border:2px solid var(--main)}
+pre{white-space:pre-wrap;word-break:break-all;font:13px/1.6 ui-monospace,Menlo,monospace;background:#f2f4f6;padding:12px;border-radius:8px;margin:10px 0;max-height:320px;overflow:auto}
+.mini{display:block;font:inherit;font-size:15px;padding:12px;border-radius:8px;border:1px solid #c9c9c3;background:#fff;width:100%;margin-top:8px;cursor:pointer;color:var(--ink)}
+.mini.primary{background:var(--main);border-color:var(--main);color:#fff;font-weight:700}
+#copied{font-size:14px;color:var(--ok);font-weight:700;min-height:1.5em;margin-top:6px}
+details{font-size:14px;color:var(--sub);margin:18px 0}
+details a{display:block;padding:7px 0;color:var(--main)}
+#bar{position:fixed;left:0;right:0;bottom:0;background:#1a1a1a;color:#fff;font-size:14px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:center;gap:12px}
+#bar a{color:#fff;font-weight:700;white-space:nowrap}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>リンクの開き方テスト 第3弾</h1>
+  <div class="env">
+    <div><small>端末</small><b id="e-os">…</b></div>
+    <div><small>いま開いている場所</small><b id="e-place">…</b></div>
+  </div>
+</div></header>
+<div id="band"><div class="wrap" id="band-t"></div></div>
+
+<div class="wrap">
+  <div class="box">
+    <h2>はじめに3つ教えてください</h2>
+    <div id="setup"></div>
+  </div>
+  <div class="box">
+    <h2>やり方</h2>
+    <ol>
+      <li>「試す」を押して、どうなったかを見る</li>
+      <li>この画面に戻って、下の選択肢から当てはまるものを押す</li>
+      <li>全部終わったら、いちばん下の「結果」をコピーしてChatworkに貼る</li>
+    </ol>
+    <p class="lead" style="margin:8px 0 0">画面を閉じても記録は残ります。楽天のページが出たときは、戻るボタンでこの画面に戻れます。<b>楽天で注文を確定するボタンは押さないでください。</b></p>
+  </div>
+
+  <div id="tests"></div>
+
+  <div class="box" id="summary">
+    <h2>結果</h2>
+    <pre id="out"></pre>
+    <button class="mini primary" id="copy">結果をコピーする</button>
+    <div id="copied"></div>
+    <button class="mini" id="reset">記録を全部消してやり直す</button>
+  </div>
+
+  <details>
+    <summary>端末や場所の判定が違うとき</summary>
+    <p>実際の場所と違う表示が出ていたら、下から正しいものを選んでください。結果に「手で切り替えた」と残ります。</p>
+    <a href="?force_os=ios&force_app=ig">iPhoneのInstagramとして開く</a>
+    <a href="?force_os=ios&force_app=fb">iPhoneのFacebookとして開く</a>
+    <a href="?force_os=and&force_app=ig">AndroidのInstagramとして開く</a>
+    <a href="?force_os=and&force_app=fb">AndroidのFacebookとして開く</a>
+    <a href="?force_os=ios&force_app=none">iPhoneのふつうのブラウザとして開く</a>
+    <a href="?force_os=and&force_app=none">Androidのふつうのブラウザとして開く</a>
+    <a href="?force_os=off">自動の判定に戻す</a>
+  </details>
+</div>
+<div id="bar"><span id="bar-t"></span><a href="#summary">結果へ</a></div>
+
+<script src="d.js"></script>
+<script>
+(function () {
+var E = window.ENV;
+var BASE = location.href.split(/[?#]/)[0].replace(/[^\/]*$/, "");
+var BARE = BASE.replace(/^https?:\/\//, "");
+var OUT = BASE + "out.html";
+
+// 試す先（行き先は全部ここだけで持つ）
+var A = "item.rakuten.co.jp/f401307-fukuoka/54112540/";
+var B = "item.rakuten.co.jp/f401307-fukuoka/54112538/";
+var C = "item.rakuten.co.jp/f401307-fukuoka/54112539/";
+var S = "search.rakuten.co.jp/search/mall/PANP/?f=0&sid=394727";
+var NOAPP = "linktest-nonexistent-app://test";
+function web(x) { return "https://" + x; }
+function app(x) { return "rakutenichiba://" + x; }
+
+var isIOSApp = E.ios && E.inApp, isAndApp = E.and && E.inApp, isIOSWeb = E.ios && !E.inApp, isAndWeb = E.and && !E.inApp;
+
+var ALL = [
+ {id:"r1",g:"app",on:isIOSApp||isIOSWeb||isAndApp,n:"返礼品A 楽天アプリを呼ぶ",js:[app(A),web(A)],d:"アプリを呼び、開かなければ1.6秒後に楽天の商品ページへ切り替えます。"},
+ {id:"r2",g:"app",on:isIOSApp||isAndApp,n:"検索結果 楽天アプリを呼ぶ",js:[app(S),web(S)],d:"同じ形で、2件が並ぶ検索結果の画面を呼びます。"},
+ {id:"r3",g:"app",on:isIOSApp,n:"返礼品B 楽天アプリを呼ぶ",js:[app(B),web(B)],d:"R2がうまくいかないときの代わりの形です。"},
+ {id:"r4",g:"app",on:isIOSApp,n:"返礼品C 楽天アプリを呼ぶ",js:[app(C),web(C)],d:"R2がうまくいかないときの代わりの形です。"},
+ {id:"n1",g:"plain",on:true,n:"返礼品A 普通のリンク",href:web(A),d:"何も細工していないリンクです。"},
+ {id:"n2",g:"plain",on:true,n:"検索結果 普通のリンク",href:web(S),d:"何も細工していないリンクです。"},
+ {id:"n3",g:"plain",on:isAndApp,n:"返礼品B 普通のリンク",href:web(B),d:"何も細工していないリンクです。"},
+ {id:"n4",g:"plain",on:isAndApp,n:"返礼品C 普通のリンク",href:web(C),d:"何も細工していないリンクです。"},
+ {id:"f1",g:"fall",on:isIOSApp||isIOSWeb||isAndApp,n:"入っていないアプリを呼ぶ＋逃げ道",js:[NOAPP,OUT+"?t=f1&k=fb"],d:"楽天アプリの有無に関係なく、「アプリが無い人」と同じ状態を作ります。開かなければ1.6秒後に確認用の画面へ切り替わります。"},
+ {id:"e1",g:"esc",on:isIOSApp,n:"Safariを名指しで開く",href:"x-safari-https://"+BARE+"out.html?t=e1",d:"開いた先の画面に、どこで開いたかが大きく出ます。"},
+ {id:"e2",g:"esc",on:isIOSApp&&E.app==="ig",n:"Instagramの機能で外へ出す",href:"instagram://extbrowser/?url="+encodeURIComponent(OUT+"?t=e2"),d:"Instagramの中でだけ試します。"},
+ {id:"e3",g:"esc",on:isIOSApp,n:"Chromeを名指しで開く",href:"googlechromes://"+BARE+"out.html?t=e3",d:"Chromeが入っていない方は飛ばしてください。"},
+ {id:"e4",g:"esc",on:isIOSApp,n:"URLの末尾に目印を付ける",href:OUT+"?t=e4&openExternalBrowser=1",d:"リンクの末尾に openExternalBrowser=1 を付けた形です。"},
+ {id:"e5",g:"esc",on:isIOSApp,n:"Safariを名指しで楽天の商品ページを開く",href:"x-safari-https://"+A,d:"E1で何も起きなかったときは飛ばしてください。"},
+ {id:"e6",g:"esc",on:isIOSApp,n:"アプリ → Safari → 逃げ道の順に試す",chain:[NOAPP,"x-safari-https://"+BARE+"out.html?t=e6",OUT+"?t=e6&k=fb"],d:"押したあと最大3.2秒待ってください。アプリが無い人に、1回の押下でSafariまで届くかを見ます。"},
+ {id:"e7",g:"esc",on:isIOSApp&&E.app==="ig",n:"アプリ → Instagramの機能 → 逃げ道の順に試す",chain:[NOAPP,"instagram://extbrowser/?url="+encodeURIComponent(OUT+"?t=e7"),OUT+"?t=e7&k=fb"],meta:true,d:"押したあと最大3.2秒待ってください。E6と同じ狙いで、Instagramの機能を使う形です。"},
+ {id:"a1",g:"esc",on:isAndApp,n:"Chromeを名指しで開く",href:"intent://"+BARE+"out.html?t=a1#Intent;scheme=https;package=com.android.chrome;end",d:"開いた先の画面に、どこで開いたかが大きく出ます。"},
+ {id:"a2",g:"esc",on:isAndApp,n:"いつものブラウザで開く",href:"intent://"+BARE+"out.html?t=a2#Intent;scheme=https;end",d:"アプリを名指しせずに、ふだん使うブラウザで開けるかを見ます。"}
+];
+var TESTS = ALL.filter(function (t) { return t.on; });
+
+var OPTS = [
+ ["app","楽天アプリが|開いた"],
+ ["browser","別のブラウザが|開いた"],
+ ["same","この画面の中で|ページが変わった"],
+ ["none","何も起きなかった"],
+ ["dialog","小窓が出た|（エラー・確認）"],
+ ["other","その他|（メモに書く）"]
+];
+var LOGIN = [["in","ログイン済み|だった"],["out","ログインを|求められた"],["unk","分からない"],["na","アプリが|開かなかった"]];
+var ORDER = [["ok","手続きの画面まで|進めた"],["stop","途中で止まった"],["sold","品切れで|進めなかった"],["na","アプリが|開かなかった"]];
+
+var GROUPS = {
+ app:{t:"楽天アプリで開くか",l:"楽天アプリが入っていない方も押してください。入っていない人に何が起きるかも知りたい試験です。"},
+ plain:{t:"普通のリンクだとどうなるか",l:"いまの本番と同じ形です。比べるために押してください。"},
+ fall:{t:"アプリが無いときの逃げ道",l:"アプリが開かなかった人が、止まらずに先へ進めるかを見ます。"},
+ esc:{t:"外のブラウザへ出られるか",l:"アプリの外へ出られる形を探します。何も起きなくても正しい結果なので、そのまま記録してください。確認の小窓が出たら「開く」「続ける」の側を押し、最後にどうなったかを選びます。小窓が出たことはメモに書いてください。"},
+ fin:{t:"楽天アプリで申し込みまで進めるか",l:""}
+};
+
+var KEY = "iab3:" + (E.ios ? "ios" : E.and ? "and" : "pc") + ":" + (E.app || "web");
+var S_ = { a:{}, memo:{}, auto:{}, setup:{} };
+try { var raw = JSON.parse(localStorage.getItem(KEY) || "null"); if (raw) S_ = { a:raw.a||{}, memo:raw.memo||{}, auto:raw.auto||{}, setup:raw.setup||{} }; } catch (e) {}
+function persist() { try { localStorage.setItem(KEY, JSON.stringify(S_)); } catch (e) {} }
+function save() { persist(); render(); }
+
+function $(i) { return document.getElementById(i); }
+function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+function lines(s) { return s.split("|").map(function (x) { return '<span class="nw">' + x + '</span>'; }).join(""); }
+
+// 見出しと帯
+$("e-os").textContent = E.osName;
+$("e-place").textContent = E.place + (E.forced ? "（手で切り替え）" : "");
+var band = $("band"), bt = $("band-t");
+if (E.app === "ig" || E.app === "fb") {
+  band.className = "go";
+  bt.innerHTML = "<b>このまま押して大丈夫です</b>" + (E.app === "ig" ? "Instagram" : "Facebook") + "の中で開けています。";
+} else if (E.inApp) {
+  band.className = "unknown";
+  bt.innerHTML = "<b>確かめたいアプリとは別の場所です</b>InstagramかFacebookから開き直してください。このまま押すと、" + esc(E.place) + "の結果として記録します。";
+} else if (E.ios || E.and) {
+  band.className = "normal";
+  bt.innerHTML = "<b>ふつうのブラウザの試験です</b>ここではふつうのブラウザ用の試験だけを出しています。InstagramとFacebookの試験は、それぞれのアプリの中から開いてください。";
+} else {
+  band.className = "unknown";
+  bt.innerHTML = "<b>スマホで開いてください</b>この試験はスマホでしか意味がありません。";
+}
+
+// はじめの質問
+var SETUP = [["rk","楽天アプリは入っていますか",[["yes","入っている"],["no","入っていない"],["unk","分からない"]]],
+             ["lg","楽天アプリにログインしていますか",[["yes","している"],["no","していない"],["unk","分からない"]]]];
+if (E.ios) SETUP.push(["cr","Chromeは入っていますか",[["yes","入っている"],["no","入っていない"],["unk","分からない"]]]);
+$("setup").innerHTML = SETUP.map(function (q) {
+  return '<div class="q"><span>' + q[1] + '</span><div class="seg">' + q[2].map(function (o) {
+    return '<button class="opt" data-s="' + q[0] + '" data-v="' + o[0] + '">' + o[1] + '</button>';
+  }).join("") + '</div></div>';
+}).join("");
+
+// 試験カード
+function card(t, label) {
+  var btn = t.href
+    ? '<a class="go-btn" data-press="' + t.id + '" href="' + esc(t.href) + '">試す</a>'
+    : '<button class="go-btn" data-press="' + t.id + '" data-run="' + t.id + '">試す</button>';
+  var opts = OPTS.map(function (o) { return '<button class="opt" data-t="' + t.id + '" data-v="' + o[0] + '">' + lines(o[1]) + '</button>'; }).join("");
+  return '<div class="t" id="card-' + t.id + '"><h3><i>' + t.id.toUpperCase() + '</i>' + esc(t.n) + '</h3><p>' + esc(t.d) + '</p>' + btn +
+    '<div class="ans"><span>どうなりましたか</span><div class="opts">' + opts + '</div></div>' +
+    '<input class="memo" data-m="' + t.id + '" placeholder="メモ（気づいたことがあれば）" aria-label="' + t.id.toUpperCase() + 'のメモ">' +
+    '<div class="auto" id="auto-' + t.id + '"></div></div>';
+}
+function finCard() {
+  function row(id, label, list) {
+    return '<div class="ans"><span>' + label + '</span><div class="opts">' + list.map(function (o) {
+      return '<button class="opt" data-t="' + id + '" data-v="' + o[0] + '">' + lines(o[1]) + '</button>'; }).join("") + '</div></div>';
+  }
+  return '<div class="t" id="card-l1"><h3><i>L1</i>開いた楽天アプリの状態</h3>' +
+    '<p>' + FIN_TEXT + '</p>' +
+    '<div class="warn"><b>「注文を確定する」は押さないでください。</b>このボタンが見えたら、そこで止めて戻ります。買い物かごに入ったものは、あとで消してください。</div>' +
+    '<a class="go-btn" data-press="l1" href="' + esc(FIN_HREF) + '"' + (E.ios ? ' data-app="' + esc(app(FIN_ITEM)) + '"' : '') + '>楽天アプリで開く</a>' +
+    row("l1", "ログインされていましたか", LOGIN) + row("l2", "申し込みの手続きまで進めましたか", ORDER) +
+    '<input class="memo" data-m="l1" placeholder="メモ（気づいたことがあれば）" aria-label="L1のメモ"></div>';
+}
+var FIN_ITEM = A;
+var FIN_HREF = web(A);
+var FIN_TEXT = "ボタンで楽天アプリを開き、ログインされているかを見ます。そのあと「寄付を申し込む」から進み、「購入手続き」の先まで行けるかを確かめます。";
+var showFin = E.inApp && (E.ios || E.and);
+
+var html = "";
+["app","plain","fall","esc"].forEach(function (g, gi) {
+  var list = TESTS.filter(function (t) { return t.g === g; });
+  if (!list.length) return;
+  html += '<h2>' + GROUPS[g].t + '</h2><p class="lead">' + GROUPS[g].l + '</p>';
+  list.forEach(function (t) { html += card(t); });
+});
+if (showFin) html += '<h2>' + GROUPS.fin.t + '</h2>' + finCard();
+$("tests").innerHTML = html;
+
+// アプリを呼ぶ部品（ナレッジ「購入ボタンからAmazon・楽天へ送る」§4 と同じ動き）
+var watching = null;
+function now() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+function press(id) { watching = { id:id, t0:now() }; delete S_.auto[id]; persist(); }
+function note(kind) {
+  if (!watching) return;
+  var ms = Math.round(now() - watching.t0);
+  if (ms < 15000) S_.auto[watching.id] = { k:kind, s:(ms / 1000).toFixed(1) };
+  watching = null; persist();
+}
+document.addEventListener("visibilitychange", function () { if (document.hidden) note("left"); else render(); });
+window.addEventListener("pagehide", function () { note("left"); });
+window.addEventListener("pageshow", function () { render(); });
+
+function runJs(id, scheme, fallback) {
+  var left = false, mark = function () { left = true; };
+  document.addEventListener("visibilitychange", mark, { once:true });
+  window.addEventListener("pagehide", mark, { once:true });
+  setTimeout(function () {
+    if (!left && !document.hidden) { note("fb"); window.location.href = fallback; }
+  }, 1600);
+  window.location.href = scheme;
+}
+function runChain(id, list, meta) {
+  var left = false, mark = function () { left = true; };
+  document.addEventListener("visibilitychange", mark, { once:true });
+  window.addEventListener("pagehide", mark, { once:true });
+  setTimeout(function () {
+    if (left || document.hidden) return;
+    if (meta) { var m = document.createElement("meta"); m.httpEquiv = "refresh"; m.content = "0;url=" + list[1]; document.head.appendChild(m); }
+    else window.location.href = list[1];
+    setTimeout(function () { if (!left && !document.hidden) { note("fb"); window.location.href = list[2]; } }, 1600);
+  }, 1600);
+  window.location.href = list[0];
+}
+
+document.addEventListener("click", function (e) {
+  var el = e.target.closest ? e.target.closest("[data-press],.opt") : null;
+  if (!el) return;
+  if (el.dataset.press) {
+    var id = el.dataset.press;
+    press(id);
+    if (el.dataset.run) {
+      e.preventDefault();
+      var t = ALL.filter(function (x) { return x.id === id; })[0];
+      if (t.chain) runChain(id, t.chain, t.meta); else runJs(id, t.js[0], t.js[1]);
+    } else if (el.dataset.app) {
+      e.preventDefault();
+      runJs(id, el.dataset.app, el.getAttribute("href"));
+    }
+    return;
+  }
+  if (el.dataset.s) { S_.setup[el.dataset.s] = el.dataset.v; save(); return; }
+  if (el.dataset.t) { S_.a[el.dataset.t] = el.dataset.v; save(); }
+});
+document.addEventListener("input", function (e) {
+  if (e.target.dataset && e.target.dataset.m) { S_.memo[e.target.dataset.m] = e.target.value; persist(); renderOut(); }
+});
+
+function label(list, v) { var r = list.filter(function (o) { return o[0] === v; })[0]; return r ? r[1].replace("|", "") : "未回答"; }
+function autoText(id) {
+  var a = S_.auto[id]; if (!a) return "";
+  return a.k === "fb" ? "自動記録: " + a.s + "秒で逃げ道へ切り替え" : "自動記録: " + a.s + "秒で画面を離れた";
+}
+function allIds() { var ids = TESTS.map(function (t) { return t.id; }); if (showFin) ids.push("l1","l2"); return ids; }
+
+function renderOut() {
+  var L = [];
+  L.push("■ リンクの開き方テスト 第3弾");
+  L.push("端末: " + E.osName + " ／ 場所: " + E.place + (E.forced ? "（手で切り替え）" : ""));
+  L.push(SETUP.map(function (q) { return q[1].replace(/は入っていますか|にログインしていますか/, "") + (q[0]==="lg"?"ログイン":"") + ": " + label(q[2], S_.setup[q[0]]); }).join(" ／ "));
+  L.push("");
+  TESTS.forEach(function (t) {
+    var v = S_.a[t.id];
+    var line = t.id.toUpperCase() + " " + t.n + " → " + (v ? label(OPTS, v) : "未記録");
+    var a = autoText(t.id); if (a) line += "（" + a + "）";
+    if (S_.memo[t.id]) line += " メモ: " + S_.memo[t.id];
+    L.push(line);
+  });
+  if (showFin) {
+    L.push("L1 ログイン → " + label(LOGIN, S_.a.l1));
+    L.push("L2 申し込みの手続き → " + label(ORDER, S_.a.l2) + (S_.memo.l1 ? " メモ: " + S_.memo.l1 : ""));
+  }
+  L.push("");
+  L.push("記録 " + doneCount() + "/" + allIds().length + "件");
+  L.push("判定用: " + E.ua);
+  $("out").textContent = L.join("\n");
+}
+function doneCount() { return allIds().filter(function (i) { return S_.a[i]; }).length; }
+function render() {
+  document.querySelectorAll(".opt").forEach(function (b) {
+    var cur = b.dataset.s ? S_.setup[b.dataset.s] : S_.a[b.dataset.t];
+    b.setAttribute("aria-pressed", cur === b.dataset.v ? "true" : "false");
+  });
+  TESTS.forEach(function (t) {
+    var c = $("card-" + t.id); if (c) c.classList.toggle("done", !!S_.a[t.id]);
+    var x = $("auto-" + t.id); if (x) x.textContent = autoText(t.id);
+  });
+  document.querySelectorAll(".memo").forEach(function (m) { if (document.activeElement !== m) m.value = S_.memo[m.dataset.m] || ""; });
+  $("bar-t").textContent = "記録 " + doneCount() + " / " + allIds().length + " 件";
+  renderOut();
+}
+$("reset").onclick = function () { S_ = { a:{}, memo:{}, auto:{}, setup:{} }; save(); };
+$("copy").onclick = function () {
+  var txt = $("out").textContent, msg = $("copied");
+  function ok() { msg.textContent = "コピーしました。Chatworkに貼ってください"; }
+  function ng() {
+    var ta = document.createElement("textarea"); ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    var done = false; try { done = document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    if (done) ok(); else msg.textContent = "コピーできませんでした。この画面のスクリーンショットを貼ってください";
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, ng); else ng();
+};
+render();
+})();
+</script>
+</body>
+</html>

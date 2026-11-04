@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:,">
+<title>着地の確認</title>
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 20px;font:17px/1.8 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;background:#555;color:#fff;text-align:center}
+main{width:100%;max-width:440px}
+.id{font-size:14px;opacity:.9;margin:0 0 8px}
+h1{font-size:27px;line-height:1.45;margin:0 0 14px}
+.where{display:inline-block;background:rgba(0,0,0,.28);border-radius:8px;padding:6px 14px;font-weight:700;margin:0 0 18px}
+p{margin:0 0 18px}
+.pick{background:#fff;color:#1a1a1a;border-radius:8px;padding:12px 14px;font-weight:700;margin:0 0 18px}
+a{display:block;background:#fff;color:#1a1a1a;text-decoration:none;font-weight:700;padding:15px;border-radius:8px}
+body.out{background:#137a3a}
+body.in{background:#8a5a00}
+</style></head>
+<body>
+<main>
+  <p class="id" id="id"></p>
+  <h1 id="ttl"></h1>
+  <div class="where" id="where"></div>
+  <p id="msg"></p>
+  <div class="pick" id="pick"></div>
+  <a id="back" href="./">試験ページに戻る</a>
+</main>
+<script src="d.js"></script>
+<script>
+(function () {
+  var q = location.search;
+  var t = ((q.match(/[?&]t=([a-z0-9]+)/) || [])[1] || "").toUpperCase();
+  var fb = /[?&]k=fb/.test(q);
+  var E = window.ENV;
+  document.getElementById("id").textContent = t ? "試験 " + t : "";
+  document.getElementById("where").textContent = E.osName + " ／ " + E.place;
+  var ttl, msg, pick;
+  if (fb) {
+    document.body.className = "in";
+    ttl = "逃げ道でこの画面に切り替わりました";
+    msg = "アプリが開かなかったので、自動でここへ移動しました。";
+    pick = "記録は「この画面の中でページが変わった」";
+  } else if (E.inApp) {
+    document.body.className = "in";
+    ttl = "まだアプリの中です";
+    msg = "ページは開きましたが、外のブラウザには出ていません。";
+    pick = "記録は「この画面の中でページが変わった」";
+  } else {
+    document.body.className = "out";
+    ttl = E.browser + "で開きました";
+    msg = "InstagramやFacebookの外に出ています。記録は、元のアプリに戻って押してください。";
+    pick = "記録は「別のブラウザが開いた」";
+    document.getElementById("back").style.display = "none";
+  }
+  document.getElementById("ttl").textContent = ttl;
+  document.getElementById("msg").textContent = msg;
+  document.getElementById("pick").textContent = pick;
+})();
+</script>
+</body></html>
